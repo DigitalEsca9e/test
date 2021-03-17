@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+.AllDisplayArea{
+  min-height: 70vh;
+  min-width: 100vw;
+}
+.Cards{
+  min-height: 20rem;
+  min-width:10em;
+  background-color: black;
+}
