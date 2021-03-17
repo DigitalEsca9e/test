@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 let db = new Localbase('Mani')
 //deletes all boards
+var wait=true
 export function deleteCollection(){
     db.collection('boards').delete()
     db.collection('boards').get().then(b => {
@@ -32,23 +33,26 @@ export function addBoardToDB(){
 //deletes a board from the database with the given ID
 export function deleteBoardFromDB(givenId){
     db.collection('boards').get().then(arr =>{
-        if(givenId<=arr.length){
-        for(var i=givenId+1; i<=arr.length; i++) {
-            db.collection('boards').doc({id:i}).update({
+        if(arr && givenId<=arr.length){
+            db.collection('boards').doc({id:givenId}).delete()
+            for(var i=givenId+1; i<=arr.length; i++) {
+                db.collection('boards').doc({id:i}).update({
                 id: i-1
             })
-
+            wait=true
         }
-        db.collection('boards').doc({id:givenId}).delete()
+        
+        console.log("board"+ givenId +"deleted")
         }
         else{
             console.log("Error!")
+            wait=true
         }
-    })
-    
+    })    
 }
-export function addBoardToFE(givenId, name){
-    addBoardToDB()
-    
-    
+
+export function getDoc(givenId){
+    db.collection('boards').doc({id:givenId}).get().then((doc) =>{
+        return(doc)
+    })
 }

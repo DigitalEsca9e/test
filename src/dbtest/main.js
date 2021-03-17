@@ -1,5 +1,6 @@
 import React, {Component, createElement} from 'react';
 import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';   
 import Localbase from 'localbase';
 import * as ManiF from './helpers.js';
 import Board from './board.js';
@@ -12,7 +13,15 @@ var nboards=0
 var counter=1
 console.log('total no. of board= ' +nboards)
 
-
+var a=[{}]
+db.collection('boards').get().then(b =>{
+    b.map(a =>{
+        return(
+            {a}
+        )
+    })
+})
+console.log("this is" + a)
 export class BoardsPage extends Component{
     
     constructor (props){
@@ -22,29 +31,31 @@ export class BoardsPage extends Component{
             arr:[
                 {
                     id: 1,
-                    title: 'Board 1'
+                    title: 'Board 1',
+                    notes:[{}]
                 },
                 {
                     id:2,
-                    title:'Board 2'
+                    title:'Board 2',
+                    notes:[{}]
                 }
-            ]
+            ],
+            selecteddoc:{}
         }
 
         this.addBoard=this.addBoard.bind(this);
         this.hypo=this.hypo.bind(this);
-        this.showAll=this.showAll.bind(this);
     }
 
     hypo(){
-
+        this.setState({
+            selecteddoc:ManiF.getDoc()
+        })
+        console.log("this here is"+this.state.selecteddoc)
     }
-    addBoard(){
-        
-    }
-    showAll(){
-        this.state.arr.map((boards)=>
-            <ElementCard idcopy={boards.id} title={boards.title}/>)       
+    addBoard(i){
+        this.state.arr[i].id=this.state.arr[i].title
+        console.log(this.state.arr[i].id)
     }
 
     render(){
@@ -52,12 +63,13 @@ export class BoardsPage extends Component{
         return(
             <div>
                 <div id="boardsDisplay" className="AllDisplayArea"> 
-                {this.showAll}   
+                <ElementCard  boards={this.state.arr}/>  
                 </div>
                 <Link to="/board">To Board</Link>
                 <Link to="/codecheck">Codecheck</Link>
                 <br />
-                <button onClick={this.addBoard}>Add Board</button>
+                <button onClick={this.hypo}>Button</button>
+                <button onClick={ManiF.addBoardToDB}>Add Board</button>
                 <button type="submit" onClick={ManiF.deleteBoardFromDB}>Delete Board</button>
                 <br/>
                 <button onClick={ManiF.deleteCollection}>delete boards collection</button>

@@ -41,7 +41,13 @@
   min-width: 100vw;
 }
 .Cards{
-  min-height: 20rem;
-  min-width:10em;
-  background-color: black;
+    background-color:#FAD9BB !important;
+    margin: 2% !important;
+    width: 8em !important;
+    height: 10em !important;
+    color: black !important;
+    border: 1px solid !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
