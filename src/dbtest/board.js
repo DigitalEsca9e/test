@@ -6,9 +6,9 @@ export class Board extends Component{
     constructor(props){
         super(props);
         this.state={
-            note: this.props.dataMainToBoard
+            note:props
         }
-        console.log(this.state)
+        console.log('the board is ' +this.state)
     };
     
     render(){

@@ -1,32 +1,26 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import Localbase from 'localbase';
 import { render } from '@testing-library/react';
+import ElementCard from './elementCard.js';
 
 let db = new Localbase('Mani')
 //deletes all boards
-var wait=true
 export function deleteCollection(){
     db.collection('boards').delete()
-    db.collection('boards').get().then(b => {
-        console.log(b)
-    })
-
 }
 //delets the entire database
 export function deletedatabase(){
     db.delete()
-    db.collection('boards').get().then(b => {
-        console.log(b)
-    })
 
 }
 //adds a board to the database
 export function addBoardToDB(){
     db.collection('boards').get().then(arr =>{
+        var n= arr.length+1
         db.collection('boards').add({
-            id: arr.length + 1,
-            title: 'Board',
-            notes:[{}]
+            id: n,
+            title: 'Board '+ n,
+            notes:[]
         })
     })
 }
@@ -39,20 +33,27 @@ export function deleteBoardFromDB(givenId){
                 db.collection('boards').doc({id:i}).update({
                 id: i-1
             })
-            wait=true
         }
         
         console.log("board"+ givenId +"deleted")
         }
         else{
             console.log("Error!")
-            wait=true
         }
     })    
 }
 
-export function getDoc(givenId){
-    db.collection('boards').doc({id:givenId}).get().then((doc) =>{
-        return(doc)
-    })
+export function displayFE(arr){
+            
+    if(arr && arr.length>0){
+    return(
+            <div>
+                {arr.map((a)=>{
+                return(
+                    <ElementCard board={a}/>
+                )
+                })}
+            </div>
+            )
+    }
 }

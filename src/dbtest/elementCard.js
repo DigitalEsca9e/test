@@ -5,23 +5,21 @@ import '../App.css'
 import * as ManiF from './helpers.js'
 import { Link } from 'react-router-dom';
 
-const ElementCard = ({boards}) =>{
-    console.log({boards})
+const ElementCard = ({board}) =>{
+    console.log({board})
     return(
-            <div className='abc'>
-            {boards.map((board)=>{
-                {console.log()}
-                    return(
-                    <Link to='/board'>
-                    <Card id={board.id} onCLick={ManiF.getDoc(board.id)}className="Cards">
+        <div> 
+                        
+            <Card id={board.id} className="Cards">
+                <Link to={`/${board.id}`}>
+                    <Card.Body>
                         <Card.Title>{board.title}</Card.Title>
-                        <div onClick={ManiF.deleteBoardFromDB}>Delete Button</div>
-                    </Card>
-                    </Link>
-                    )
-            })}
-            </div>
-            
+                    </Card.Body>
+                </Link>
+                <button onClick={() =>{ManiF.deleteBoardFromDB(board.id)}}>Delete Button</button>
+            </Card>
+
+        </div>
     )
 }
 export default ElementCard;
