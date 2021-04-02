@@ -11,7 +11,7 @@ const ElementCard = ({board}) =>{
         <div> 
                         
             <Card id={board.id} className="Cards">
-                <Link to={`/${board.id}`}>
+                <Link to={`/${board.title}`}>
                     <Card.Body>
                         <Card.Title>{board.title}</Card.Title>
                     </Card.Body>

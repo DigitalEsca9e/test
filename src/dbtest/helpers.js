@@ -2,6 +2,7 @@ import React, {Component, useEffect} from 'react';
 import Localbase from 'localbase';
 import { render } from '@testing-library/react';
 import ElementCard from './elementCard.js';
+import App from '../App.js';
 
 let db = new Localbase('Mani')
 //deletes all boards
@@ -55,5 +56,11 @@ export function displayFE(arr){
                 })}
             </div>
             )
+           
     }
 }
+/*export function openSomething(id, {setNotebook}){
+    db.collection('boads').doc({id:id}).get().then(doc =>{
+        setNotebook(doc.notes)
+    })
+}*/
